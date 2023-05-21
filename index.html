@@ -31,7 +31,7 @@
 				  <label class="rdoclassidx">
 				    <input type="radio" name="classidx" value="1" required="required">
 				    <span class="label-body">1</span>
-				    <input type="radio" name="classidx" value="2">
+				    <input type="radio" name="classidx" value="2">	
 				    <span class="label-body">2</span>
 				    <input type="radio" name="classidx" value="3">
 				    <span class="label-body">3</span>
@@ -48,6 +48,10 @@
 			    <div class="twelve columns" id="signlist">
 			      <label for="dateinput">請填寫要簽到的學生【姓名】</label>
 			      <input class="u-full-width" type="text" name="signnames" required="required">
+			      <input class="u-full-width" type="text" name="signnames" >
+			      <input class="u-full-width" type="text" name="signnames" >
+			      <input class="u-full-width" type="text" name="signnames" >
+			      <input class="u-full-width" type="text" name="signnames" >
 			    </div>
 			    <div class="twelve columns">			  	
 			  	<input class="button-primary" type="submit" value="送出">
@@ -93,6 +97,7 @@
 						signnamelist.push(elem.value);
 					}
 				    });
+				var signnamelist=signnamelist.toString();
 				var signresult = confirm("要簽到的日期:【"+selectdate+"】\n要簽到的堂次:【第"+selectclass+"堂】\n要簽到的學生:【"+signnamelist+"】");
 					if (signresult){
 						liff
@@ -101,86 +106,10 @@
 						  })
 						  .then(() => {
 							liff
-							  .sendMessages([
-							    {
-							      "type": "flex",
-							      "altText": "簽到學生",
-							      "contents": {
-							      	  "type": "bubble",
-								  "body": {
-								    "type": "box",
-								    "layout": "vertical",
-								    "contents": [
-								      {
-									"type": "text",
-									"text": selectdate,
-									"weight": "bold",
-									"size": "xl",
-									"color": "#ffffff"
-								      },
-								      {
-									"type": "box",
-									"layout": "vertical",
-									"margin": "lg",
-									"spacing": "sm",
-									"contents": [
-									  {
-									    "type": "box",
-									    "layout": "baseline",
-									    "spacing": "sm",
-									    "contents": [
-									      {
-										"type": "text",
-										"text": "堂次：",
-										"color": "#ffffff",
-										"size": "lg",
-										"flex": 1
-									      },
-									      {
-										"type": "text",
-										"text": selectclass,
-										"wrap": true,
-										"color": "#ffffff",
-										"size": "lg",
-										"flex": 3
-									      }
-									    ]
-									  },
-									  {
-									    "type": "box",
-									    "layout": "baseline",
-									    "spacing": "sm",
-									    "contents": [
-									      {
-										"type": "text",
-										"text": "姓名：",
-										"color": "#ffffff",
-										"size": "lg",
-										"flex": 1
-									      },
-									      {
-										"type": "text",
-										"text": signnamelist.toString(),
-										"wrap": true,
-										"color": "#ffffff",
-										"size": "lg",
-										"flex": 3,
-										"contents": []
-									      }
-									    ]
-									  }
-									]
-								      }
-								    ]
-								  },
-								  "styles": {
-								    "body": {
-								      "backgroundColor": "#33c3f0"
-								    }
-								  }
-								}
-							    },
-							  ])
+							  .sendMessages([{
+								"type":"text",
+								"text":'"簽到日期":"'+selectdate+'",\n"簽到堂次":"'+selectclass+'",\n"簽到姓名":"'+signnamelist+'"'
+							  }])
 							  .then(() => {
 							     liff.closeWindow();
 							  })
