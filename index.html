@@ -20,7 +20,7 @@
 		<div class="container" id="app">
 			<form onsubmit="return submitform();">
 			  <div class="mb-3">
-				<h4><label for="selectdate" class="form-label">請選擇要簽到的【日期】</label></h4>
+				<h4><label for="selectdate" class="form-label">請選擇要簽到的【日期】</label></h4>	
 				<input type="text" class="form-control" id="datepicker" required="required">
 			  </div>
 			  
@@ -58,13 +58,16 @@
 			    </div>
 			  </div>
 
-			  <button type="submit" class="btn btn-primary">送出</button>
+			  <button type="submit" class="btn btn-primary">Submit</button>
 		  	  <button type="button" class="btn btn-outline-primary" style="float: right" onclick="addsignlist()">新增姓名欄位</button>
 			</form>
 		</div>
 		
 
-		<script type="text/javascript">			
+		<script type="text/javascript">
+			if (!liff.isLoggedIn()) {
+			  liff.login({ redirectUri: "https://localhost:8080" });
+			}
 			function addclasslist(e){	
 				var signdiv=document.getElementById(e.id+'-div');
 				if (e.value ==''){
@@ -192,6 +195,9 @@
 						    liffId: "1661169478-MwNYEGYm", // Use own liffId
 						  })
 						  .then(() => {
+			  			if (!liff.isLoggedIn()) {
+			  			liff.login({ redirectUri: "https://arvincshuang.github.io/Lemon_signin/" });
+						}
 							liff
 							  .sendMessages([{
 								"type":"text",
